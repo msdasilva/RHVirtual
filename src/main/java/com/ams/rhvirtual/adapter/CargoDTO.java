@@ -11,5 +11,5 @@ public class CargoDTO {
 	@NotBlank
 	private String descricao;
 	@NotBlank
-	private BigDecimal salario;
+	private BigDecimal salario;	
 }
