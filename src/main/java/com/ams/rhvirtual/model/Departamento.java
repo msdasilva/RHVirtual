@@ -1,12 +1,15 @@
 package com.ams.rhvirtual.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.ams.rhvirtual.enums.Ativo;
 
 @Entity
 @Table(name = "departamento")
@@ -22,6 +25,9 @@ public class Departamento implements Serializable {
 	private long id;
 	private String nome;
 	private String localizacao;
+	private Ativo ativo;
+	private LocalDateTime created;
+	private LocalDateTime modified;
 	public long getId() {
 		return id;
 	}
@@ -39,6 +45,24 @@ public class Departamento implements Serializable {
 	}
 	public void setLocalizacao(String localizacao) {
 		this.localizacao = localizacao;
+	}	
+	public Ativo getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(Ativo ativo) {
+		this.ativo = ativo;
+	}
+	public LocalDateTime getCreated() {
+		return created;
+	}
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+	public LocalDateTime getModified() {
+		return modified;
+	}
+	public void setModified(LocalDateTime modified) {
+		this.modified = modified;
 	}
 	@Override
 	public int hashCode() {

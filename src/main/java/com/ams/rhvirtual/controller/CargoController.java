@@ -2,11 +2,18 @@ package com.ams.rhvirtual.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ams.rhvirtual.adapter.CargoDTO;
 import com.ams.rhvirtual.model.Cargo;
 import com.ams.rhvirtual.service.CargoService;
 
@@ -25,7 +32,15 @@ public class CargoController {
 		if (this.cargoService.getAllCargos().isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(cargoService.getAllCargos());
+		return ResponseEntity.ok(this.cargoService.getAllCargos());
+	}
+
+	@PostMapping
+	public ResponseEntity<Cargo> salvar(@RequestBody @Valid CargoDTO cargoDTO) {
+		var cargo = new Cargo();
+		BeanUtils.copyProperties(cargoDTO, cargo);
+		this.cargoService.salvar(cargo);
+		return new ResponseEntity<>(cargo, HttpStatus.CREATED);
 	}
 
 }
