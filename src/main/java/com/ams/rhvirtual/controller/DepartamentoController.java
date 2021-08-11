@@ -4,15 +4,21 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ams.rhvirtual.model.Departamento;
 import com.ams.rhvirtual.service.DepartamentoService;
 
 @RestController
+@RequestMapping("/api/v1/departamentos")
 public class DepartamentoController {
 
 	private DepartamentoService departamentoService;
+
+	public DepartamentoController(DepartamentoService departamentoService) {
+		this.departamentoService = departamentoService;
+	}
 
 	@GetMapping
 	public ResponseEntity<List<Departamento>> getAllDepartamentos() {
@@ -21,4 +27,5 @@ public class DepartamentoController {
 		}
 		return ResponseEntity.ok(departamentoService.getAllDepartamentos());
 	}
+
 }
