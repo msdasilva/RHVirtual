@@ -1,6 +1,7 @@
 package com.ams.rhvirtual.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ public class Funcionario implements Serializable {
 	private String nome;
 	private String sexo;
 	private String cpf;
+	private LocalDate dataNascimento;
 	private Ativo ativo;
 	private LocalDateTime created;
 	private LocalDateTime modified;
@@ -61,7 +63,14 @@ public class Funcionario implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 
 	public Ativo getAtivo() {
 		return ativo;
