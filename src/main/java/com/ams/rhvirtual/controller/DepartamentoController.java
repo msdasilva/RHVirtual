@@ -5,6 +5,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,11 +32,13 @@ public class DepartamentoController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Departamento>> getAllDepartamentos() {
-		if (this.departamentoService.getAllDepartamentos().isEmpty()) {
+	@Cacheable("departamentos")
+	public ResponseEntity<List<Departamento>> getAllDepartamentos(
+			@PageableDefault(sort = "nome", direction = Sort.Direction.ASC, page = 0, size = 10) Pageable page) {
+		if (this.departamentoService.getAllDepartamentos(page).isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(this.departamentoService.getAllDepartamentos());
+		return ResponseEntity.ok(this.departamentoService.getAllDepartamentos(page));
 	}
 
 	@PostMapping

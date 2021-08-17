@@ -5,6 +5,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,11 +32,13 @@ public class CargoController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Cargo>> getAllCargos() {
-		if (this.cargoService.getAllCargos().isEmpty()) {
+	@Cacheable("cargos")
+	public ResponseEntity<List<Cargo>> getAllCargos(
+			@PageableDefault(sort = "nome", direction = Sort.Direction.ASC, page = 0, size = 10) Pageable page) {
+		if (this.cargoService.getAllCargos(page).isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(this.cargoService.getAllCargos());
+		return ResponseEntity.ok(this.cargoService.getAllCargos(page));
 	}
 
 	@PostMapping

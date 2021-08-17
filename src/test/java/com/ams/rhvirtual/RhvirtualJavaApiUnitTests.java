@@ -16,6 +16,9 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import com.ams.rhvirtual.model.Cargo;
 import com.ams.rhvirtual.model.Departamento;
 import com.ams.rhvirtual.model.Funcionario;
+import com.ams.rhvirtual.repository.CargoRepository;
+import com.ams.rhvirtual.repository.DepartamentoRepository;
+import com.ams.rhvirtual.repository.FuncionarioRepository;
 import com.ams.rhvirtual.service.CargoService;
 import com.ams.rhvirtual.service.DepartamentoService;
 import com.ams.rhvirtual.service.FuncionarioService;
@@ -28,12 +31,15 @@ public class RhvirtualJavaApiUnitTests {
 
 	@Autowired
 	private FuncionarioService funcionarioService;
+	private FuncionarioRepository funcionarioRepository;
 
 	@Autowired
 	private CargoService cargoService;
+	private CargoRepository cargoRepository;
 
 	@Autowired
 	private DepartamentoService departamentoService;
+	private DepartamentoRepository departamentoRepository;
 
 	@Before(value = "")
 	public void setUp() {
@@ -43,14 +49,14 @@ public class RhvirtualJavaApiUnitTests {
 	}
 
 	@Test
-	public void shouldReturnNotNullTravelService() {
+	void shouldReturnNotNullTravelService() {
 		assertNotNull(funcionarioService);
 		assertNotNull(cargoService);
 		assertNotNull(departamentoService);
 	}
 
 	@Test
-	public void shouldReturnFuncionarioCreatedWithSuccess() throws Exception {
+	void shouldReturnFuncionarioCreatedWithSuccess() throws Exception {
 
 		var funcionario = new Funcionario();
 		funcionario.setCpf("1234567");
@@ -66,11 +72,11 @@ public class RhvirtualJavaApiUnitTests {
 	}
 
 	@Test
-	public void shouldReturnCargoCreatedWithSuccess() throws Exception {
+	void shouldReturnCargoCreatedWithSuccess() throws Exception {
 
 		var cargo = new Cargo();
 		cargo.setDescricao("1234567");
-		cargo.setNome("Ricardo");
+		cargo.setNome("Gerente");
 		cargo.setSalario(new BigDecimal(8500.00));
 		var cargoSalvo = cargoService.salvar(cargo);
 
@@ -82,7 +88,7 @@ public class RhvirtualJavaApiUnitTests {
 	}
 
 	@Test
-	public void shouldReturnDepartamentoCreatedWithSuccess() throws Exception {
+	void shouldReturnDepartamentoCreatedWithSuccess() throws Exception {
 
 		var departamento = new Departamento();
 		departamento.setLocalizacao("1234567");

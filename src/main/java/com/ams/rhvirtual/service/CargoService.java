@@ -1,31 +1,19 @@
 package com.ams.rhvirtual.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
-import com.ams.rhvirtual.enums.Ativo;
 import com.ams.rhvirtual.model.Cargo;
-import com.ams.rhvirtual.repository.CargoRepository;
 
-@Service
-public class CargoService {
+public interface CargoService {
 
-	private CargoRepository cargoRepository;
+	List<Cargo> getAllCargos(Pageable page);
 
-	public CargoService(CargoRepository cargoRepository) {
-		this.cargoRepository = cargoRepository;
-	}
+	Cargo salvar(Cargo cargo);
 
-	public List<Cargo> getAllCargos() {
-		return this.cargoRepository.findAll();
-	}
+	void deleteById(Long cargoId);
 
-	public Cargo salvar(Cargo cargo) {
-		cargo.setCreated(LocalDateTime.now());
-		cargo.setAtivo(Ativo.SIM);
-		return this.cargoRepository.save(cargo);
-	}
-
+	Optional<Cargo> findById(Long cargoId);
 }
